@@ -1,11 +1,22 @@
 import { useState } from "react";
 import TextField from "../../ui/TextField";
+import { useMutation } from "@tanstack/react-query";
+import { getOtp } from "../../services/authService";
 
 function SendOTPForm() {
   const [phoneNumber, setPhoneNumber] = useState("");
+
+  const {isPending, isSuccess, error, data, mutateAsync} = useMutation({
+    mutationFn: getOtp
+  })
   
-  const sendOtpHandler = e => {
+  const sendOtpHandler = async (e) => {
     e.preventDefault()
+    try {
+      const data = await mutateAsync({phoneNumber})   /// calling mutateAsync() means calling the getOtp() 
+    } catch (error) {
+      
+    }
   }
 
   return (

@@ -14,5 +14,11 @@
 4. individulize styles in Tailwind: @layer components{ .textField__input @apply{...} }
 5. make component for input and its label as a global and useful component. and put it into ui folder.
 6. install react-icons and react-otp-input
+7. install axios and an instace of that named app and make an object that contains get, post, ... .
+8. use the http.post to make a function for getting and cheking otp.
+9. isctall tanstack query. then make a queryClient and wrap all elements in App by QueryClientProvider. by doing this we can use react query use throughout the project.
+10. useQuery to get data, useMutation to post, put, delete data.
+11. in getOtp(data) we want to post data (phoneNumber), so we use useMutation that get getOtp as an object.
+
 
 

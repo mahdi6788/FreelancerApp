@@ -11,3 +11,5 @@
 * pages: Auth.jsx, Dashboard.jsx, Profile.jsx, Proposal.jsx
 ** it is better not to have side effects (useEffect and event function) into each page, and there are just components and these components are located in features.
 
+4. individulize styles in Tailwind: @layer components{ .textField__input @apply{...} }
+

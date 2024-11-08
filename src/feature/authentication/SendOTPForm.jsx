@@ -14,17 +14,10 @@ function SendOTPForm() {
           value={phoneNumber}
             id="phonenumber"
             type="text"
-            className="w-full py-3 px-4 rounded-xl text-secondary-900 
-            border border-gray-300 
-            hover:border-primary-300 
-            focus:border-primary-500 
-            focus:bg-white focus:shadow-lg 
-            focus:shadow-primary-200
-            transition-all duration-300 ease-out"
+            className="textField__input"
           />
         </div>
-        <button className="w-full py-2 px-4 font-bold bg-primary-900 text-white 
-        rounded-xl transition-all duration-300 hover:bg-primary-800 shadow-lg shadow-primary-300">
+        <button className="btn btn--primary w-full">
           ارسال کد تایید
           </button>
       </form>

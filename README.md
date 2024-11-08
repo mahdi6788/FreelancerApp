@@ -9,5 +9,5 @@
 * utils: helper functions 
 * services: comunication with backend: authApi.js, projectApi.js
 * pages: Auth.jsx, Dashboard.jsx, Profile.jsx, Proposal.jsx
-it is better not to have side effects (useEffect and event function) into each page, and instead of that use components located in features.
+** it is better not to have side effects (useEffect and event function) into each page, and there are just components and these components are located in features.
 

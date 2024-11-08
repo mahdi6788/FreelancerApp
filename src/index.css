@@ -183,3 +183,7 @@ table td {
 }
 
 /*  react tag input */
+
+label {
+  display: block;
+}

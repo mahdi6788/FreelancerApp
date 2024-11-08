@@ -1,12 +1,15 @@
-import './App.css'
+import { Route, Routes } from "react-router-dom";
+import "./App.css";
+import Auth from "./pages/Auth";
 
 function App() {
-
   return (
-    <div>
-      <h1 className='text-4xl font-bold text-success'> شروع پروژه </h1>
+    <div className="container xl:max-w-screen-xl">
+      <Routes>
+        <Route path="/auth" element={<Auth />} />
+      </Routes>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;

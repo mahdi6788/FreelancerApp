@@ -4,7 +4,7 @@ function App() {
 
   return (
     <div>
-      <h1 className='text-3xl font-bold'> شروع پروژه </h1>
+      <h1 className='text-4xl font-bold text-success'> شروع پروژه </h1>
     </div>
   )
 }

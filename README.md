@@ -12,4 +12,7 @@
 ** it is better not to have side effects (useEffect and event function) into each page, and there are just components and these components are located in features.
 
 4. individulize styles in Tailwind: @layer components{ .textField__input @apply{...} }
+5. make component for input and its label as a global and useful component. and put it into ui folder.
+6. install react-icons and react-otp-input
+
 

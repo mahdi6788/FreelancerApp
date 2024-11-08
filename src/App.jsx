@@ -4,7 +4,7 @@ function App() {
 
   return (
     <div>
-      Freelancer App
+      <h1 className='text-3xl font-bold'> شروع پروژه </h1>
     </div>
   )
 }

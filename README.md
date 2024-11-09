@@ -19,6 +19,8 @@
 9. isctall tanstack query. then make a queryClient and wrap all elements in App by QueryClientProvider. by doing this we can use react query use throughout the project.
 10. useQuery to get data, useMutation to post, put, delete data.
 11. in getOtp(data) we want to post data (phoneNumber), so we use useMutation that get getOtp as an object.
+12. *** Note *** we want to connect to backend and database so we need to run the backend program first.
+
 
 
 

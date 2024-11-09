@@ -5,7 +5,7 @@ export function getOtp(data) {
 }
 
 export function checkOtp(data){
-    return http.post("/user/check-otp", data)
+    return http.post("/user/check-otp", data).then(({data})=>data.data) /// note 13
 }
 
 

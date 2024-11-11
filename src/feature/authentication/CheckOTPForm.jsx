@@ -1,38 +1,73 @@
 import { useMutation } from "@tanstack/react-query";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import OTPInput from "react-otp-input";
 import { checkOtp } from "../../services/authService";
 import { useNavigate } from "react-router-dom";
+import { HiArrowCircleRight } from "react-icons/hi";
+import {CiEdit} from "react-icons/ci"
 
-function CheckOTPForm({phoneNumber}) {
-  const navigate = useNavigate()
+function CheckOTPForm({ phoneNumber, setStep, onResendOtp, otpResponse }) {
+  const RESEND_TIME = 10;
+  const navigate = useNavigate();
   const [otp, setOtp] = useState("");
+  const [time, setTime] = useState(RESEND_TIME);
 
-  const { data, isPending, error, mutateAsync} = useMutation({
-    mutationFn: checkOtp
-  })
+  const { isPending, mutateAsync } = useMutation({
+    mutationFn: checkOtp,
+  });
 
   const chckOtpHandler = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
     try {
-      const {message,user} = await mutateAsync({phoneNumber, otp})
-      toast.success(message)
-      
-      if(user.isActive){
+      const { message, user } = await mutateAsync({ phoneNumber, otp });
+      toast.success(message);
+
+      if (user.isActive) {
         /// push to panel based on role
         // if (user.role === "OWNER") navigate("/owner")
         // if (user.role === "FREELANCER") navigate("/freelancer")
       } else {
-        navigate("/complete-profile")
+        navigate("/complete-profile");
       }
     } catch (error) {
-      toast.error(error?.response?.data?.message)
+      toast.error(error?.response?.data?.message);
     }
+  };
 
-  }
+  useEffect(() => {
+    const timer =
+      time > 0 &&
+      setInterval(() => {
+        setTime(time - 1);
+      }, 1000);
+    return () => {
+      clearInterval(timer);
+    };
+  }, [time]);
   return (
-    <div>
+    <div className="mb-4">
+      <button onClick={() => setStep(1)}>
+        <HiArrowCircleRight className="w-7 h-7 text-secondary-500" />
+      </button>
+      <div>
+        {otpResponse &&
+        (<div className="flex items-center gap-x-3 my-4"> 
+          <span>{otpResponse?.message}</span> 
+          <button onClick={() => setStep(1)}> <CiEdit className="text-primary-900 w-5 h-5"/> </button>
+        </div>
+         )
+        }
+      </div>
+      <div className="text-secondary-500 mb-3">
+        {time > 0 ? (
+          <p> {time} ثانیه تا ارسال مجدد کد</p>
+        ) : (
+          <button className="text-primary-900" onClick={onResendOtp}>
+            ارسال مجدد کد تایید
+          </button>
+        )}
+      </div>
       <form className="space-y-10" onSubmit={chckOtpHandler}>
         <p className="font-bold text-secondary-800">کد تایید را وارد کنید </p>
         <OTPInput
@@ -46,7 +81,7 @@ function CheckOTPForm({phoneNumber}) {
             width: "2.5rem",
             padding: "0.5rem, 0.2rem",
             border: "1px solid rgb(var(--color-primary-400))",
-            borderRadius: "0.5rem"
+            borderRadius: "0.5rem",
           }}
         />
         <button className="btn btn--primary w-full">تایید</button>

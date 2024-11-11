@@ -2,20 +2,21 @@ import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import OTPInput from "react-otp-input";
+import { checkOtp } from "../../services/authService";
 
 function CheckOTPForm({phoneNumber}) {
   const [otp, setOtp] = useState("");
 
   const { data, isPending, error, mutateAsync} = useMutation({
-    mutationFn: CheckOTPForm
+    mutationFn: checkOtp
   })
 
   const chckOtpHandler = async (e) => {
     e.preventDefault()
     try {
-      const {message, user} = await mutateAsync({phoneNumber, otp})
+      const {message,user} = await mutateAsync({phoneNumber, otp})
       toast.success(message)
-      console.log(message, user)
+      // console.log(message, user)
     } catch (error) {
       toast.error(error?.response?.data?.message)
     }

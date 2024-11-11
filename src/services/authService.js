@@ -8,5 +8,9 @@ export function checkOtp(data){
     return http.post("/user/check-otp", data).then(({data})=>data.data) /// note 13
 }
 
+export function completeProfile(data){
+    return http.post("/user/complete-profile", data).then(({data}) => data.data)
+}
+
 
 

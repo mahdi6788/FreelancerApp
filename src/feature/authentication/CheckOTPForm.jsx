@@ -3,8 +3,10 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import OTPInput from "react-otp-input";
 import { checkOtp } from "../../services/authService";
+import { useNavigate } from "react-router-dom";
 
 function CheckOTPForm({phoneNumber}) {
+  const navigate = useNavigate()
   const [otp, setOtp] = useState("");
 
   const { data, isPending, error, mutateAsync} = useMutation({
@@ -16,7 +18,14 @@ function CheckOTPForm({phoneNumber}) {
     try {
       const {message,user} = await mutateAsync({phoneNumber, otp})
       toast.success(message)
-      // console.log(message, user)
+      
+      if(user.isActive){
+        /// push to panel based on role
+        // if (user.role === "OWNER") navigate("/owner")
+        // if (user.role === "FREELANCER") navigate("/freelancer")
+      } else {
+        navigate("/complete-profile")
+      }
     } catch (error) {
       toast.error(error?.response?.data?.message)
     }

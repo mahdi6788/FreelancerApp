@@ -6,6 +6,7 @@ import { checkOtp } from "../../services/authService";
 import { useNavigate } from "react-router-dom";
 import { HiArrowCircleRight } from "react-icons/hi";
 import {CiEdit} from "react-icons/ci"
+import Loading from "../../ui/Loading";
 
 function CheckOTPForm({ phoneNumber, setStep, onResendOtp, otpResponse }) {
   const RESEND_TIME = 10;
@@ -84,7 +85,13 @@ function CheckOTPForm({ phoneNumber, setStep, onResendOtp, otpResponse }) {
             borderRadius: "0.5rem",
           }}
         />
-        <button className="btn btn--primary w-full">تایید</button>
+        <div>
+          {isPending ? (
+            <Loading />
+          ) : (
+            <button className="btn btn--primary w-full">تایید</button>
+          )}
+        </div>
       </form>
     </div>
   );

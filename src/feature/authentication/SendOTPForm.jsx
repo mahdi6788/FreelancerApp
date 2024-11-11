@@ -5,28 +5,27 @@ import { getOtp } from "../../services/authService";
 import toast from "react-hot-toast";
 import Loading from "../../ui/Loading";
 
-function SendOTPForm({setStep, phoneNumber, setPhoneNumber}) {
+function SendOTPForm({ isSendingOtp, phoneNumber, setPhoneNumber, onSendOtp }) {
+  // const {isPending, isSuccess, error, data, mutateAsync} = useMutation({
+  //   mutationFn: getOtp
+  // })
 
-  const {isPending, isSuccess, error, data, mutateAsync} = useMutation({
-    mutationFn: getOtp
-  })
-  
-  const sendOtpHandler = async (e) => {
-    e.preventDefault()
-    try {
-      const data = await mutateAsync({phoneNumber})   /// calling mutateAsync() means calling the getOtp() 
-      // console.log(data.message)
-      toast.success(data.message)
-      {setStep(2)}
-      // console.log(data.message)
-    } catch (error) {
-      toast.error(error?.response?.data?.message)
-    }
-  }
+  // const sendOtpHandler = async (e) => {
+  //   e.preventDefault()
+  //   try {
+  //     const data = await mutateAsync({phoneNumber})   /// calling mutateAsync() means calling the getOtp()
+  //     // console.log(data.message)
+  //     toast.success(data.message)
+  //     {setStep(2)}
+  //     // console.log(data.message)
+  //   } catch (error) {
+  //     toast.error(error?.response?.data?.message)
+  //   }
+  // }
 
   return (
     <div>
-      <form className="space-y-8" onSubmit={sendOtpHandler}>
+      <form className="space-y-8" onSubmit={onSendOtp}>
         <TextField
           label={" شماره موبایل"}
           name={"phonenumber"}
@@ -34,11 +33,13 @@ function SendOTPForm({setStep, phoneNumber, setPhoneNumber}) {
           value={phoneNumber}
         />
         <div>
-        {
-        isPending 
-        ? <Loading />
-        : <button type="submit" className="btn btn--primary w-full">ارسال کد تایید</button>
-        }
+          {isSendingOtp ? (
+            <Loading />
+          ) : (
+            <button type="submit" className="btn btn--primary w-full">
+              ارسال کد تایید
+            </button>
+          )}
         </div>
       </form>
     </div>

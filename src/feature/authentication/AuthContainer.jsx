@@ -8,7 +8,7 @@ function AuthContainer() {
   const [phoneNumber, setPhoneNumber] = useState("09123456789");
 
   /// step is counter for each stage : step1: sending phone number and step2: typing the took code to check
-  const [step, setStep] = useState(2);
+  const [step, setStep] = useState(1);
   const renderStep = () => {
     switch (step) {
       case 1:

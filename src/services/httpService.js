@@ -1,19 +1,51 @@
 import axios from "axios";
 
+const BASE_URL = "http://localhost:5000/api";
+
 const app = axios.create({
-    baseURL: "http://localhost:5000/api",
-    withCredentials: true
-})
+  baseURL: BASE_URL,
+  withCredentials: true,
+});
 
+/// to check all errors and successful data in request and response.
 
+app.interceptors.request.use(
+  (res) => res,
+  (err) => Promise.reject(err) /// these are errors related to user like internet problem
+);
 
-const http={
-    get: app.get,
-    post: app.post,
-    delete: app.delete,
-    put: app.put,
-    patch: app.patch
-}
+/// these errors are related to program and should be handle by developers
+app.interceptors.response.use(
+  (res) => res,
+  async (err) => {
+    /// all errors regarding response are shown in err.config
+    /// so we save all errors in a const
+    const originalConfig = err.config;
 
+    if (err.response.status === 401 && !originalConfig._retry) {
+      /// 401 error is related to expiration of access token
+      originalConfig._retry = true;
+      try {
+        /// because there is refresh token but does not have access time, so get new access and refresh tokens
+        const { data } = await axios.get(`${BASE_URL}/user/refresh-token`, {
+          withCredentials: true,
+        });
+        /// after getting new tokens, it is neccessary to continue the request user sent before 401 error
+        if (data) return app(originalConfig);
+      } catch (error) {
+        return Promise.reject(error);
+      }
+    }
+    return Promise.reject(err);
+  }
+);
 
-export default http
+const http = {
+  get: app.get,
+  post: app.post,
+  delete: app.delete,
+  put: app.put,
+  patch: app.patch,
+};
+
+export default http;

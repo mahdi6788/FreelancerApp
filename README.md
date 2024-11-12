@@ -23,7 +23,8 @@
 13. use this: .then(({data})=>data.data) to go further into the response and get deep information
 14. when we have diffrent steps, we need to count them step by step, so we create step and setStep by useState().
 15. react-loader-spinner: is used to show loading process and create Loading component in ui folder to use in different parts of the program.
-
-16. we donot like to put side effects into a page, so make a component and put different functions there.
+16. we do not like to put side effects into a page, so make a component and put different functions there.
+17. make a not found page used when user enter unknown address.
+18. 
 
 

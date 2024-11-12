@@ -4,7 +4,7 @@ const BASE_URL = "http://localhost:5000/api";
 
 const app = axios.create({
   baseURL: BASE_URL,
-  withCredentials: true,
+  withCredentials: true,   /// if true, all cookie are sent to backend (like access and refresh tokens)
 });
 
 /// to check all errors and successful data in request and response.

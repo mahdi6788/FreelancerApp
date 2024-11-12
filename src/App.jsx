@@ -6,6 +6,10 @@ import { Toaster } from "react-hot-toast";
 import CompleteProfile from "./pages/CompleteProfile";
 import NotFound from "./pages/NotFound";
 import Home from "./pages/Home";
+import AppLayout from "./ui/AppLayout";
+import Owner from "./pages/Owner";
+import Admin from "./pages/Admin";
+import Freelancer from "./pages/Freelancer";
 
 const queryClient = new QueryClient()
 
@@ -15,9 +19,14 @@ function App() {
     <div className="container xl:max-w-screen-xl">
       <Toaster />
       <Routes>
+        <Route path="/" element={<Home />} />
         <Route path="/auth" element={<Auth />} />
         <Route path="/complete-profile" element={<CompleteProfile/>} />
-        <Route path="/" element={<Home />} />
+        <Route element={<AppLayout/>} >
+          <Route path="/owner" element={<Owner/>} />
+          <Route path="/admin" element={<Admin/>} />
+          <Route path="/freelancer" element={<Freelancer/>} />
+        </Route>
         <Route path="*" element={<NotFound />} />
       </Routes>
     </div>

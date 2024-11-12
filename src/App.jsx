@@ -16,7 +16,6 @@ const queryClient = new QueryClient()
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-    <div className="container xl:max-w-screen-xl">
       <Toaster />
       <Routes>
         <Route path="/" element={<Home />} />
@@ -29,7 +28,6 @@ function App() {
         </Route>
         <Route path="*" element={<NotFound />} />
       </Routes>
-    </div>
     </QueryClientProvider>
   );
 }

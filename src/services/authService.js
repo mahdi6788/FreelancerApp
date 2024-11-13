@@ -1,5 +1,7 @@
 import http from "./httpService"
 
+/// all functions related to authentication
+
 export function getOtp(data) {
     return http.post("/user/get-otp", data).then(({data})=>data.data)   /// note 13
 }

@@ -10,6 +10,7 @@ import { TbPencilMinus } from "react-icons/tb";
 import Modal from "../../ui/Modal";
 import { useState } from "react";
 import ConfirmDelete from "../../ui/ConfirmDelete";
+import useRemoveProject from "./useRemoveProject";
 
 /// use Compound Component
 
@@ -17,11 +18,12 @@ function ProjectTable2() {
   const { isLoading, projects } = useOwnerProjects();
   const [isEditOpen, setIsEditOpen] = useState(false);
   const [isRemoveOpen, setIsRemoveOpen] = useState(false);
+  const {removeProject, isDeleting} = useRemoveProject()
 
   if (isLoading) return <Loading />;
 
-  if (!projects.length) return <Empty />;
   // console.log(projects.length)
+  if (!projects.length) return <Empty />;
   // console.log(projects[1].category.title)
 
   return (
@@ -85,7 +87,9 @@ function ProjectTable2() {
                   <ConfirmDelete
                     sourceName={project.title}
                     onClose={() => setIsRemoveOpen(false)}
-                    onConfirmed={() => {}}
+                    onConfirm={() => removeProject(project._id, {
+                      onSuccess: () => setIsRemoveOpen(false)
+                    })}
                     disabled={false}
                   />
                 </Modal>

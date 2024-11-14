@@ -1,4 +1,4 @@
-function ConfirmDelete({ sourceName, onClose, onConfirmed, disabled }) {
+function ConfirmDelete({ sourceName, onClose, onConfirm, disabled }) {
   return (
     <div>
       <h2 className="font-bold text-base mb-8">
@@ -15,7 +15,7 @@ function ConfirmDelete({ sourceName, onClose, onConfirmed, disabled }) {
         </button>
         <button
           className="btn btn--danger flex-1 py-3"
-          onClick={onConfirmed}
+          onClick={onConfirm}
           disabled={disabled}
         >
           تایید

@@ -7,11 +7,15 @@ import { toPersianNumbersWithComma } from "../../utils/toPersianNumbers";
 import Table from "../../ui/Table";
 import { HiOutlineTrash } from "react-icons/hi";
 import { TbPencilMinus } from "react-icons/tb";
+import Modal from "../../ui/Modal";
+import { useState } from "react";
 
 /// use Compound Component
 
 function ProjectTable2() {
   const { isLoading, projects } = useOwnerProjects();
+  const [isEditOpen, setIsEditOpen] = useState(false);
+  const [isRemoveOpen, setIsRemoveOpen] = useState(false);
 
   if (isLoading) return <Loading />;
 
@@ -59,12 +63,26 @@ function ProjectTable2() {
             </td>
             <td>
               <div className="flex items-center gap-x-4">
-                <button >
+                <button onClick={() => setIsEditOpen(true)}>
                   <TbPencilMinus className="w-5 h-5 text-primary-900" />
                 </button>
-                <button>
+                <Modal
+                  title={"Edit"}
+                  open={isEditOpen}
+                  onClose={() => setIsEditOpen(false)}
+                >
+                  This is a Modal
+                </Modal>
+                <button onClick={() => setIsRemoveOpen(true)}>
                   <HiOutlineTrash className="w-5 h-5 text-error" />
                 </button>
+                <Modal
+                  title={"Delete"}
+                  open={isRemoveOpen}
+                  onClose={() => setIsRemoveOpen(false)}
+                >
+                  Are you sure
+                </Modal>
               </div>
             </td>
           </Table.Row>

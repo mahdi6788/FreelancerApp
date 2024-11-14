@@ -3,6 +3,7 @@ import Loading from "../../ui/Loading"
 import Empty from "../../ui/Empty"
 import truncateText from "../../utils/truncateText"
 import toLacalDateShort from "../../utils/toLacalDateShort"
+import { toPersianNumbersWithComma } from "../../utils/toPersianNumbers"
 
 function ProjectTable() {
     const {isLoading, projects} = useOwnerProjects()
@@ -35,7 +36,7 @@ function ProjectTable() {
                             <td>{index + 1}</td>
                             <td>{truncateText(project.title, 20)}</td>
                             <td>{truncateText(project.category.title, 20)}</td>
-                            <td>{project.budget}</td>
+                            <td>{toPersianNumbersWithComma(project.budget)}</td>
                             <td>{toLacalDateShort(project.deadline)}</td>
                             <td>
                                 <div className="flex flex-wrap items-center gap-2 max-w-[200px]">

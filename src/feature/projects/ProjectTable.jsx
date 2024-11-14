@@ -1,6 +1,7 @@
 import useOwnerProjects from "./useOwnerProjects"
 import Loading from "../../ui/Loading"
 import Empty from "../../ui/Empty"
+import truncateText from "../../utils/truncateText"
 
 function ProjectTable() {
     const {isLoading, projects} = useOwnerProjects()
@@ -9,6 +10,7 @@ function ProjectTable() {
 
     if(!projects.length) return <Empty/>
     // console.log(projects.length)
+    // console.log(projects[1].category.title)
 
     return (
         <div className="bg-secondary-0 overflow-x-auto">
@@ -30,8 +32,8 @@ function ProjectTable() {
                     {projects.map((project,index) => (
                         <tr key={project._id}>
                             <td>{index + 1}</td>
-                            <td>{project.title}</td>
-                            <td>{project.category.title}</td>
+                            <td>{truncateText(project.title, 20)}</td>
+                            <td>{truncateText(project.category.title, 20)}</td>
                             <td>{project.budget}</td>
                             <td>{project.deadline}</td>
                             <td>

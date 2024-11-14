@@ -9,6 +9,7 @@ import { HiOutlineTrash } from "react-icons/hi";
 import { TbPencilMinus } from "react-icons/tb";
 import Modal from "../../ui/Modal";
 import { useState } from "react";
+import ConfirmDelete from "../../ui/ConfirmDelete";
 
 /// use Compound Component
 
@@ -67,7 +68,7 @@ function ProjectTable2() {
                   <TbPencilMinus className="w-5 h-5 text-primary-900" />
                 </button>
                 <Modal
-                  title={"Edit"}
+                  title={`ویرایش ${project.title}`}
                   open={isEditOpen}
                   onClose={() => setIsEditOpen(false)}
                 >
@@ -77,11 +78,16 @@ function ProjectTable2() {
                   <HiOutlineTrash className="w-5 h-5 text-error" />
                 </button>
                 <Modal
-                  title={"Delete"}
+                  title={`حذف ${project.title}`}
                   open={isRemoveOpen}
                   onClose={() => setIsRemoveOpen(false)}
                 >
-                  Are you sure
+                  <ConfirmDelete
+                    sourceName={project.title}
+                    onClose={() => setIsRemoveOpen(false)}
+                    onConfirmed={() => {}}
+                    disabled={false}
+                  />
                 </Modal>
               </div>
             </td>

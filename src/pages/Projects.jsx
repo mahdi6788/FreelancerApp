@@ -1,8 +1,9 @@
 import ProjectTable from "../feature/projects/ProjectTable"
+import ProjectTable2 from "../feature/projects/ProjectTable2"
 
 function Projects() {
   return (
-    <div><ProjectTable/></div>
+    <div><ProjectTable2/></div>
   )
 }
 

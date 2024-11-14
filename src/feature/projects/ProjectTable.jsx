@@ -1,4 +1,3 @@
-import toast from "react-hot-toast"
 import useOwnerProjects from "./useOwnerProjects"
 import Loading from "../../ui/Loading"
 import Empty from "../../ui/Empty"
@@ -8,7 +7,8 @@ function ProjectTable() {
 
     if(isLoading) return <Loading/>
 
-    // if(!projects.length) retrun <Empty />
+    if(!projects.length) return <Empty/>
+    // console.log(projects.length)
 
     return (
         <div className="bg-secondary-0 overflow-x-auto">
@@ -28,7 +28,7 @@ function ProjectTable() {
                 </thead>
                 <tbody>
                     {projects.map((project,index) => (
-                        <tr key={project.id}>
+                        <tr key={project._id}>
                             <td>{index + 1}</td>
                             <td>{project.title}</td>
                             <td>{project.category.title}</td>
@@ -36,7 +36,7 @@ function ProjectTable() {
                             <td>{project.deadline}</td>
                             <td>
                                 <div className="flex flex-wrap items-center gap-2 max-w-[200px]">
-                                    {projects.tags.map(tag => (
+                                    {project.tags.map(tag => (
                                         <span className="badge badge--secondary" key={tag}>
                                             {tag}
                                         </span>

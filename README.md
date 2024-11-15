@@ -75,3 +75,6 @@ there, meaning that the content depends on the outlet data and provided by compo
 
 23.to arrange the size of modal: 
 w-[calc(100vw-2rem)] md:max-w-lg max-h-[calc(100vh-2rem)] overflow-y-auto
+
+24. there is two types of add event listener : bubbling, capturing
+ the third parameters of eventlistener is determined as listenCapturing = true, it prevents from closing the modal automatically immadiately.

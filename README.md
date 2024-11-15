@@ -88,4 +88,6 @@ w-[calc(100vw-2rem)] md:max-w-lg max-h-[calc(100vh-2rem)] overflow-y-auto
  There is different ways to create forms: 1. Formik. 2. react-hook-form
  ***react-hook-form***: simple to learn and optimum.
  react-hook-form manages state and submitting so no need to useState
+
+ 26. **options**    ***react-tag-input-component***
  

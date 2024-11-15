@@ -2,6 +2,9 @@
 
 import { useForm } from "react-hook-form";
 import HookForm from "../../ui/HookForm";
+import RHFSelect from "../../ui/RHFSelect";
+import { TagsInput } from "react-tag-input-component";
+import { useState } from "react";
 
 /// react-hook-form manages state and submitting so no need to useState
 function CreateProjectForm() {
@@ -14,6 +17,8 @@ function CreateProjectForm() {
   const onsubmit = (data) => {
     console.log(data);
   };
+
+  const [tags, setTags] = useState([]);
 
   /// use name to determine which field is registered
   return (
@@ -56,6 +61,17 @@ function CreateProjectForm() {
           required: "بودجه ضروری است",
         }}
       />
+      <RHFSelect
+        label="دسته بندی"
+        name="category"
+        options={[]}
+        register={register}
+        required
+      />
+      <div>
+        <label className="mb-2 block text-secondary-700">تگ</label>
+        <TagsInput value={tags} onChange={setTags} name="tags" />
+      </div>
       <button type="submit" className="btn btn--primary w-full">
         تایید
       </button>

@@ -78,3 +78,14 @@ w-[calc(100vw-2rem)] md:max-w-lg max-h-[calc(100vh-2rem)] overflow-y-auto
 
 24. there is two types of add event listener : bubbling, capturing
  the third parameters of eventlistener is determined as listenCapturing = true, it prevents from closing the modal automatically immadiately.
+
+ 25. develop a form to make a project: which types of fields we need? and how to send them to backend?
+ title, description, category, tags, budget, deadline.
+ input: text or number
+ tags: multi input
+ deadline: date picker.
+ validation: backend(more important and necessary) and frontend. 
+ There is different ways to create forms: 1. Formik. 2. react-hook-form
+ ***react-hook-form***: simple to learn and optimum.
+ react-hook-form manages state and submitting so no need to useState
+ 

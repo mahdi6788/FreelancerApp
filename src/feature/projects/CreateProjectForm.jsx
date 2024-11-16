@@ -6,6 +6,7 @@ import RHFSelect from "../../ui/RHFSelect";
 import { TagsInput } from "react-tag-input-component";
 import { useState } from "react";
 import DatePickerField from "../../ui/DatePickerField";
+import useCategories from "../../hooks/useCategories";
 
 /// react-hook-form manages state and submitting so no need to useState
 function CreateProjectForm() {
@@ -22,6 +23,9 @@ function CreateProjectForm() {
   const [tags, setTags] = useState([]);
 
   const [date, setDate] = useState(new Date())
+
+  const {categories} = useCategories()
+  // console.log(categories)
 
   /// use name to determine which field is registered
   return (
@@ -67,7 +71,7 @@ function CreateProjectForm() {
       <RHFSelect
         label="دسته بندی"
         name="category"
-        options={[]}
+        options={categories}
         register={register}
         required
       />

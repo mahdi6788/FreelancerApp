@@ -90,4 +90,12 @@ w-[calc(100vw-2rem)] md:max-w-lg max-h-[calc(100vh-2rem)] overflow-y-auto
  react-hook-form manages state and submitting so no need to useState
 
  26. **options**    ***react-tag-input-component***
+ 27. **Date**   ***react-multi-date-picker*** 
+ 28. **fetch categories** to show in options: to fetch data from backend, we need to make a js file in services folder named categoryService containing http.get("/category/list") and need to have its response so use .then():
+ http.get("/category/list").then(({data}) => data.data)
+ the above code is getting list of categoris from backend.
+ similarly, in authServices, we wanted to get otp, check otp, complete profile and ... also in projectServices we need get projects or delete specific one.
+ After introducing API in services, use useQuery to get data as a custome hook namly useCategories. useQuery needs a key and a function that is the getCategoriesAPI we defined before in services. useQuery has different outlets like data and isLoading.
+ 
+
  

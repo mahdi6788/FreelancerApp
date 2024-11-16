@@ -1,4 +1,6 @@
 import DatePicker from "react-multi-date-picker";
+import persian from "react-date-object/calendars/persian";
+import persian_fa from "react-date-object/locales/persian_fa";
 
 function DatePickerField({ label, date, setDate }) {
   return (
@@ -10,8 +12,8 @@ function DatePickerField({ label, date, setDate }) {
         value={date}
         onChange={(date) => setDate(date)}
         format="YYYY/MM/DD"
-        calendar="persian"    // must be an object
-        locale="persian_fa"   //error must be an object
+        calendar={persian}    // should import persian, otherwise shows error that persian isnot defined.
+        locale={persian_fa}   // should import persian_fa, otherwise shows error that persian_fa isnot defined.
         calendarPosition="bottom-center"
       />
     </div>

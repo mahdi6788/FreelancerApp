@@ -110,7 +110,7 @@ function ProjectTable2() {
                       open={addproject}
                       title={"پروژه جدید"}
                     >
-                      <CreateProjectForm />
+                      <CreateProjectForm onClose={() => setAddproject(false)} />
                     </Modal>
                   </>
                 </div>

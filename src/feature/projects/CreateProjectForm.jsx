@@ -7,25 +7,36 @@ import { TagsInput } from "react-tag-input-component";
 import { useState } from "react";
 import DatePickerField from "../../ui/DatePickerField";
 import useCategories from "../../hooks/useCategories";
+import useCreateProject from "./useCreateProject";
+import Loading from "../../ui/Loading";
 
 /// react-hook-form manages state and submitting so no need to useState
-function CreateProjectForm() {
+function CreateProjectForm({onClose}) {
   const {
     register,
     formState: { errors },
     handleSubmit,
+    reset
   } = useForm();
-
-  const onsubmit = (data) => {
-    console.log(data);
-  };
 
   const [tags, setTags] = useState([]);
 
-  const [date, setDate] = useState(new Date())
+  const [date, setDate] = useState(new Date());
 
-  const {categories} = useCategories()
+  const { categories } = useCategories();
   // console.log(categories)
+
+  const {isCreating, createproject} = useCreateProject()
+  const onsubmit = (data) => {
+    const newProject = { ...data, deadline: new Date(date).toISOString, tags };
+
+    createproject(newProject, {
+      onSuccess: () => {
+        onClose()
+        reset()
+      },
+    })
+  };
 
   /// use name to determine which field is registered
   return (
@@ -79,11 +90,16 @@ function CreateProjectForm() {
         <label className="mb-2 block text-secondary-700">تگ</label>
         <TagsInput value={tags} onChange={setTags} name="tags" />
       </div>
-      <DatePickerField date={date} setDate={setDate} label="ددلاین"/>
+      <DatePickerField date={date} setDate={setDate} label="ددلاین" />
 
-      <button type="submit" className="btn btn--primary w-full">
-        تایید
-      </button>
+      <div className="!mt-8" >
+      {isCreating 
+      ? <Loading />
+      : <button type="submit" className="btn btn--primary w-full">
+      تایید
+    </button>
+    }
+      </div>
     </form>
   );
 }

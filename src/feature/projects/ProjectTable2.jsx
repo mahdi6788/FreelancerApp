@@ -83,7 +83,7 @@ function ProjectTable2() {
                     open={isEditOpen}
                     onClose={() => setIsEditOpen(false)}
                   >
-                    This is a Modal
+                    <CreateProjectForm projectToEdit={project} onClose={() => setAddproject(false)} />
                   </Modal>
                   <button onClick={() => setIsRemoveOpen(true)}>
                     <HiOutlineTrash className="w-5 h-5 text-error" />

@@ -11,31 +11,52 @@ import useCreateProject from "./useCreateProject";
 import Loading from "../../ui/Loading";
 
 /// react-hook-form manages state and submitting so no need to useState
-function CreateProjectForm({onClose}) {
+function CreateProjectForm({ onClose, projectToEdit }) {
+  const { _id: editId } = projectToEdit;
+  const isEditSession = Boolean(editId);
+
+  const {
+    title,
+    description,
+    budget,
+    category,
+    deadline,
+    tags: prevTags,
+  } = projectToEdit;
+  let editValues = {};
+  if (isEditSession) {
+    editValues = {
+      title,
+      description,
+      budget,
+      category: category._id,
+    };
+  }
+
   const {
     register,
     formState: { errors },
     handleSubmit,
-    reset
-  } = useForm();
+    reset,
+  } = useForm({ defaultValues: editValues }); /// to use previous data
 
-  const [tags, setTags] = useState([]);
+  const [tags, setTags] = useState(prevTags || []);
 
-  const [date, setDate] = useState(new Date());
+  const [date, setDate] = useState(new Date(deadline || ""));
 
   const { categories } = useCategories();
   // console.log(categories)
 
-  const {isCreating, createproject} = useCreateProject()
+  const { isCreating, createproject } = useCreateProject();
   const onsubmit = (data) => {
     const newProject = { ...data, deadline: new Date(date).toISOString, tags };
 
     createproject(newProject, {
       onSuccess: () => {
-        onClose()
-        reset()
+        onClose();
+        reset();
       },
-    })
+    });
   };
 
   /// use name to determine which field is registered
@@ -92,13 +113,14 @@ function CreateProjectForm({onClose}) {
       </div>
       <DatePickerField date={date} setDate={setDate} label="ددلاین" />
 
-      <div className="!mt-8" >
-      {isCreating 
-      ? <Loading />
-      : <button type="submit" className="btn btn--primary w-full">
-      تایید
-    </button>
-    }
+      <div className="!mt-8">
+        {isCreating ? (
+          <Loading />
+        ) : (
+          <button type="submit" className="btn btn--primary w-full">
+            تایید
+          </button>
+        )}
       </div>
     </form>
   );

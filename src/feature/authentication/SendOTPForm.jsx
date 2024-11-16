@@ -6,23 +6,7 @@ import toast from "react-hot-toast";
 import Loading from "../../ui/Loading";
 
 function SendOTPForm({ isSendingOtp, phoneNumber, setPhoneNumber, onSendOtp }) {
-  // const {isPending, isSuccess, error, data, mutateAsync} = useMutation({
-  //   mutationFn: getOtp
-  // })
-
-  // const sendOtpHandler = async (e) => {
-  //   e.preventDefault()
-  //   try {
-  //     const data = await mutateAsync({phoneNumber})   /// calling mutateAsync() means calling the getOtp()
-  //     // console.log(data.message)
-  //     toast.success(data.message)
-  //     {setStep(2)}
-  //     // console.log(data.message)
-  //   } catch (error) {
-  //     toast.error(error?.response?.data?.message)
-  //   }
-  // }
-
+  
   return (
     <div>
       <form className="space-y-8" onSubmit={onSendOtp}>

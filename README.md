@@ -40,7 +40,7 @@ useMutation needs **mutate** that gets the new data that we want to ssend to dat
 
   Example to post data to database (useMutation):
     
-const queryClient = useQueryClient()
+    const queryClient = useQueryClient()
 
     const {isPending: isCreating, mutate:  createproject} = useMutation({
         mutationFn: createProjectApi,

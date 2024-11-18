@@ -9,11 +9,13 @@ import DatePickerField from "../../ui/DatePickerField";
 import useCategories from "../../hooks/useCategories";
 import useCreateProject from "./useCreateProject";
 import Loading from "../../ui/Loading";
+import useEditProject from "./useEditProject";
 
 /// react-hook-form manages state and submitting so no need to useState
 function CreateProjectForm({ onClose, projectToEdit = {} }) {
   const { _id: editId } = projectToEdit;
-  const isEditSession = Boolean(editId);
+  const isEditMode = Boolean(editId);
+  const {isEditing, editProject} = useEditProject()
 
   const {
     title,
@@ -26,7 +28,7 @@ function CreateProjectForm({ onClose, projectToEdit = {} }) {
 
   let editValues = {};
 
-  if (isEditSession) {
+  if (isEditMode) {
     editValues = {
       title,
       description,
@@ -50,15 +52,25 @@ function CreateProjectForm({ onClose, projectToEdit = {} }) {
   // console.log(categories)
 
   const { isCreating, createproject } = useCreateProject();
+
   const onsubmit = (data) => {
     const newProject = { ...data, deadline: new Date(date).toISOString, tags };
-
-    createproject(newProject, {
-      onSuccess: () => {
-        onClose();
-        reset();
-      },
-    });
+/// switch between edit and create new
+    if (isEditMode) {
+      editProject(
+        {id: editId, newProject}, 
+        {onSuccess: () => {
+        onClose(),
+        reset()
+      }})
+    } else {
+      createproject(newProject, {
+        onSuccess: () => {
+          onClose();
+          reset();
+        },
+      });
+    }
   };
 
   /// use name to determine which field is registered

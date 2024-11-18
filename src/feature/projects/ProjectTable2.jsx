@@ -7,11 +7,11 @@ import { toPersianNumbersWithComma } from "../../utils/toPersianNumbers";
 import Table from "../../ui/Table";
 import { HiOutlineTrash } from "react-icons/hi";
 import { TbPencilMinus } from "react-icons/tb";
-import Modal from "../../ui/Modal";
 import { useState } from "react";
 import ConfirmDelete from "../../ui/ConfirmDelete";
 import useRemoveProject from "./useRemoveProject";
 import CreateProjectForm from "./CreateProjectForm";
+import Modal from "../../ui/Modal";
 
 /// use Compound Component
 
@@ -75,45 +75,50 @@ function ProjectTable2() {
               </td>
               <td>
                 <div className="flex items-center gap-x-4">
-                  <button onClick={() => setIsEditOpen(true)}>
-                    <TbPencilMinus className="w-5 h-5 text-primary-900" />
-                  </button>
-                  <Modal
-                    title={`ویرایش ${project.title}`}
-                    open={isEditOpen}
-                    onClose={() => setIsEditOpen(false)}
-                  >
-                    <CreateProjectForm projectToEdit={project} onClose={() => setAddproject(false)} />
-                  </Modal>
-                  <button onClick={() => setIsRemoveOpen(true)}>
-                    <HiOutlineTrash className="w-5 h-5 text-error" />
-                  </button>
-                  <Modal
-                    title={`حذف ${project.title}`}
-                    open={isRemoveOpen}
-                    onClose={() => setIsRemoveOpen(false)}
-                  >
-                    <ConfirmDelete
-                      sourceName={project.title}
-                      onClose={() => setIsRemoveOpen(false)}
-                      onConfirm={() =>
-                        removeProject(project._id, {
-                          onSuccess: () => setIsRemoveOpen(false),
-                        })
-                      }
-                      disabled={false}
-                    />
-                  </Modal>
-                  <>
+                  <div>
+                    <button onClick={() => setIsEditOpen(true)}>
+                      <TbPencilMinus className="w-5 h-5 text-primary-900" />
+                    </button>
                     <Modal
-                      onClose={() => setAddproject(false)}
-                      open={addproject}
-                      title={"پروژه جدید"}
+                      title={`ویرایش ${project.title}`}
+                      open={isEditOpen}
+                      onClose={() => setIsEditOpen(false)}
                     >
-                      <CreateProjectForm onClose={() => setAddproject(false)} />
+                      <CreateProjectForm
+                        projectToEdit={project}
+                        onClose={() => setAddproject(false)}
+                      />
                     </Modal>
-                  </>
+                  </div>
+                  <div>
+                    <button onClick={() => setIsRemoveOpen(true)}>
+                      <HiOutlineTrash className="w-5 h-5 text-error" />
+                    </button>
+                    <Modal
+                      title={`حذف ${project.title}`}
+                      open={isRemoveOpen}
+                      onClose={() => setIsRemoveOpen(false)}
+                    >
+                      <ConfirmDelete
+                        sourceName={project.title}
+                        onClose={() => setIsRemoveOpen(false)}
+                        onConfirm={() =>
+                          removeProject(project._id, {
+                            onSuccess: () => setIsRemoveOpen(false),
+                          })
+                        }
+                        disabled={false}
+                      />
+                    </Modal>
+                  </div>
                 </div>
+                <Modal
+                  onClose={() => setAddproject(false)}
+                  open={addproject}
+                  title={"پروژه جدید"}
+                >
+                  <CreateProjectForm onClose={() => setAddproject(false)} />
+                </Modal>
               </td>
             </Table.Row>
           ))}

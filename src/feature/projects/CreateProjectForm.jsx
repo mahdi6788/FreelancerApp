@@ -11,7 +11,7 @@ import useCreateProject from "./useCreateProject";
 import Loading from "../../ui/Loading";
 
 /// react-hook-form manages state and submitting so no need to useState
-function CreateProjectForm({ onClose, projectToEdit }) {
+function CreateProjectForm({ onClose, projectToEdit = {} }) {
   const { _id: editId } = projectToEdit;
   const isEditSession = Boolean(editId);
 
@@ -23,7 +23,9 @@ function CreateProjectForm({ onClose, projectToEdit }) {
     deadline,
     tags: prevTags,
   } = projectToEdit;
+
   let editValues = {};
+
   if (isEditSession) {
     editValues = {
       title,

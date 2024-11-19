@@ -27,6 +27,7 @@ When using useMutation(), we want to make changes in database, so we need to upd
 useMutation needs **mutate** that gets the new data that we want to ssend to database and also onSuccess function that shows what happend after successful post data.
 
   Example to get data from database (useQuery):
+    
     const {data, isLoading} = useQuery({
     queryKey: ["projects"],
     queryFn: getOwnerProjectsApi,
@@ -38,9 +39,10 @@ useMutation needs **mutate** that gets the new data that we want to ssend to dat
   so useQuery gets data from database through axios.get command and from the above address.
 
   Example to post data to database (useMutation):
+    
     const queryClient = useQueryClient()
 
-    const {isPending: isCreating, mutate: createproject} = useMutation({
+    const {isPending: isCreating, mutate:  createproject} = useMutation({
         mutationFn: createProjectApi,
         onSuccess: (data) => {
             toast.success(data.message)

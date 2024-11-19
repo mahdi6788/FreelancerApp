@@ -5,7 +5,7 @@ import truncateText from "../../utils/truncateText";
 import toLacalDateShort from "../../utils/toLacalDateShort";
 import { toPersianNumbersWithComma } from "../../utils/toPersianNumbers";
 import Table from "../../ui/Table";
-import { HiOutlineTrash } from "react-icons/hi";
+import { HiEye, HiOutlineTrash } from "react-icons/hi";
 import { TbPencilMinus } from "react-icons/tb";
 import { useState } from "react";
 import ConfirmDelete from "../../ui/ConfirmDelete";
@@ -13,6 +13,7 @@ import useRemoveProject from "./useRemoveProject";
 import CreateProjectForm from "./CreateProjectForm";
 import Modal from "../../ui/Modal";
 import ToggleProjectStatus from "./ToggleProjectStatus";
+import { Link } from "react-router-dom";
 
 /// use Compound Component
 
@@ -48,6 +49,7 @@ function ProjectTable2() {
           <th>فریلنسر</th>
           <th>وضعیت</th>
           <th>عملیات</th>
+          <th>درخواست ها</th>
         </Table.Header>
         <Table.Body>
           {projects.map((project, index) => (
@@ -116,6 +118,11 @@ function ProjectTable2() {
                 >
                   <CreateProjectForm onClose={() => setAddproject(false)} />
                 </Modal>
+              </td>
+              <td>
+                <Link to={project._id}>
+                    <HiEye className="w-5 h-5 text-primary-800"/>
+                </Link>
               </td>
             </Table.Row>
           ))}

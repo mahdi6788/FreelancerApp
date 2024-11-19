@@ -1,7 +1,7 @@
 
-function Empty() {
+function Empty({resourceName}) {
   return (
-    <div>Empty</div>
+    <div>{resourceName}</div>
   )
 }
 

@@ -19,7 +19,7 @@ import { Link } from "react-router-dom";
 
 function ProjectTable2() {
   const { isLoading, projects } = useOwnerProjects();
-  const [editProject, setEditProject] = useState(null);  /// null = false
+  const [editProject, setEditProject] = useState(null); /// null = false
   const [deleteProject, setDeleteProject] = useState(null);
   const { removeProject, isDeleting } = useRemoveProject();
   const [addproject, setAddproject] = useState(false);
@@ -32,12 +32,14 @@ function ProjectTable2() {
 
   return (
     <>
+      {/* New Project */}
       <button
         onClick={() => setAddproject(true)}
         className="mb-2 p-1 bg-primary-300 rounded-md "
       >
         ایجاد پروژه جدید
       </button>
+      {/* Table */}
       <Table>
         <Table.Header>
           <th>#</th>
@@ -72,66 +74,73 @@ function ProjectTable2() {
               <td>
                 <ToggleProjectStatus project={project} />
               </td>
-              {/* Operation عملیات */}
+              {/* Operation/ عملیات */}
               <td>
                 <div className="flex items-center gap-x-4">
                   {/* Edit Project */}
-                  <div>  {/* note 31 */}
+                  <div>
+                    {" "}
+                    {/* note 31 */}
                     <button onClick={() => setEditProject(project)}>
                       <TbPencilMinus className="w-5 h-5 text-primary-900" />
                     </button>
-                    <Modal
-                      title={`ویرایش ${editProject?.title}`}
-                      open={editProject}   /// when there is a project, it is not null, this means that true otherwise false
-                      onClose={() => setEditProject(null)}
-                    >
-                      <CreateProjectForm
-                        projectToEdit={editProject}   /// here editProject contains the project 
-                        onClose={() => setEditProject(null)}
-                      />
-                    </Modal>
                   </div>
                   {/* Delete Project */}
                   <div>
                     <button onClick={() => setDeleteProject(project)}>
                       <HiOutlineTrash className="w-5 h-5 text-error" />
                     </button>
-                    <Modal
-                      title={`حذف ${deleteProject?.title}`}
-                      open={deleteProject}
-                      onClose={() => setDeleteProject(null)}
-                    >
-                      <ConfirmDelete
-                        sourceName={deleteProject?.title}
-                        onClose={() => setDeleteProject(null)}
-                        onConfirm={() =>
-                          removeProject(project._id, {
-                            onSuccess: () => setDeleteProject(null),
-                          })
-                        }
-                        disabled={false}
-                      />
-                    </Modal>
                   </div>
                 </div>
-                <Modal
-                  onClose={() => setAddproject(false)}
-                  open={addproject}
-                  title={"پروژه جدید"}
-                >
-                  <CreateProjectForm onClose={() => setAddproject(false)} />
-                </Modal>
               </td>
               {/* درخواست ها Proposals */}
               <td>
                 <Link to={project._id}>
-                    <HiEye className="w-5 h-5 text-primary-800"/>
+                  <HiEye className="w-5 h-5 text-primary-800" />
                 </Link>
               </td>
             </Table.Row>
           ))}
         </Table.Body>
       </Table>
+      {/* put Modals outside the Table, otherwiae event.target and ref.current have interface  */}
+      {/* Modals */}
+      {/* New Project Modal */}
+      <Modal
+        onClose={() => setAddproject(false)}
+        open={addproject}
+        title={"پروژه جدید"}
+      >
+        <CreateProjectForm onClose={() => setAddproject(false)} />
+      </Modal>
+      {/* Edit Modal */}
+      <Modal
+        title={`ویرایش ${editProject?.title}`}
+        open={editProject} /// when there is a project, it is not null, this means that true otherwise false
+        onClose={() => setEditProject(null)}
+      >
+        <CreateProjectForm
+          projectToEdit={editProject} /// here editProject contains the project
+          onClose={() => setEditProject(null)}
+        />
+      </Modal>
+      {/* Delete Modal */}
+      <Modal
+        title={`حذف ${deleteProject?.title}`}
+        open={deleteProject}
+        onClose={() => setDeleteProject(null)}
+      >
+        <ConfirmDelete
+          sourceName={deleteProject?.title}
+          onClose={() => setDeleteProject(null)}
+          onConfirm={() =>
+            removeProject(project._id, {
+              onSuccess: () => setDeleteProject(null),
+            })
+          }
+          disabled={false}
+        />
+      </Modal>
     </>
   );
 }

@@ -1,7 +1,7 @@
 import Loading from "../../ui/Loading";
-import usetoggleProjectStatus from "./usetoggleProjectStatus";
 import Toggle from "../../ui/Toggle";
 import { Label } from "@headlessui/react";
+import usetoggleProjectStatus from "./usetoggleProjectStatus";
 
 function ToggleProjectStatus({ project }) {
   const { isUpdating, toggleProjectStatus } = usetoggleProjectStatus();

@@ -10,7 +10,7 @@ function DatePickerField({ label, date, setDate }) {
         containerClassName="w-full"
         inputClass="textField__input"
         value={date}
-        onChange={(date) => setDate(date)}
+        onChange={() => setDate(date)}
         format="YYYY/MM/DD"
         calendar={persian}    // should import persian, otherwise shows error that persian isnot defined.
         locale={persian_fa}   // should import persian_fa, otherwise shows error that persian_fa isnot defined.

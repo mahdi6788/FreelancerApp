@@ -100,8 +100,8 @@ function CreateProjectForm({ onClose, projectToEdit = {} }) {
         validatioSchema={{
           required: "توضیحات ضروری است",
           minLength: {
-            value: 20,
-            message: "طول توضیحات باید بیشتر از 20 کاراکتر باشد.",
+            value: 10,
+            message: "طول توضیحات باید بیشتر از 10 کاراکتر باشد.",
           },
         }}
       />

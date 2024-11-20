@@ -1,5 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { editProjectApi } from "../../services/projectService";
+import toast from "react-hot-toast";
 
 export default function useEditProject(){
     const queryClient = useQueryClient()
@@ -13,7 +14,7 @@ export default function useEditProject(){
              })
         },
         onError: (err) => {
-            toast.error(data?.response?.data?.message)
+            toast.error(err?.response?.data?.message)
         }
     })
 

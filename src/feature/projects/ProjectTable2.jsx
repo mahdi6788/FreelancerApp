@@ -19,8 +19,8 @@ import { Link } from "react-router-dom";
 
 function ProjectTable2() {
   const { isLoading, projects } = useOwnerProjects();
-  const [isEditOpen, setIsEditOpen] = useState(false);
-  const [isRemoveOpen, setIsRemoveOpen] = useState(false);
+  const [editProject, setEditProject] = useState(null);  /// null = false
+  const [deleteProject, setDeleteProject] = useState(null);
   const { removeProject, isDeleting } = useRemoveProject();
   const [addproject, setAddproject] = useState(false);
 
@@ -72,38 +72,41 @@ function ProjectTable2() {
               <td>
                 <ToggleProjectStatus project={project} />
               </td>
+              {/* Operation عملیات */}
               <td>
                 <div className="flex items-center gap-x-4">
-                  <div>
-                    <button onClick={() => setIsEditOpen(true)}>
+                  {/* Edit Project */}
+                  <div>  {/* note 31 */}
+                    <button onClick={() => setEditProject(project)}>
                       <TbPencilMinus className="w-5 h-5 text-primary-900" />
                     </button>
                     <Modal
-                      title={`ویرایش ${project.title}`}
-                      open={isEditOpen}
-                      onClose={() => setIsEditOpen(false)}
+                      title={`ویرایش ${editProject?.title}`}
+                      open={editProject}   /// when there is a project, it is not null, this means that true otherwise false
+                      onClose={() => setEditProject(null)}
                     >
                       <CreateProjectForm
-                        projectToEdit={project}
-                        onClose={() => setAddproject(false)}
+                        projectToEdit={editProject}   /// here editProject contains the project 
+                        onClose={() => setEditProject(null)}
                       />
                     </Modal>
                   </div>
+                  {/* Delete Project */}
                   <div>
-                    <button onClick={() => setIsRemoveOpen(true)}>
+                    <button onClick={() => setDeleteProject(project)}>
                       <HiOutlineTrash className="w-5 h-5 text-error" />
                     </button>
                     <Modal
-                      title={`حذف ${project.title}`}
-                      open={isRemoveOpen}
-                      onClose={() => setIsRemoveOpen(false)}
+                      title={`حذف ${deleteProject?.title}`}
+                      open={deleteProject}
+                      onClose={() => setDeleteProject(null)}
                     >
                       <ConfirmDelete
-                        sourceName={project.title}
-                        onClose={() => setIsRemoveOpen(false)}
+                        sourceName={deleteProject?.title}
+                        onClose={() => setDeleteProject(null)}
                         onConfirm={() =>
                           removeProject(project._id, {
-                            onSuccess: () => setIsRemoveOpen(false),
+                            onSuccess: () => setDeleteProject(null),
                           })
                         }
                         disabled={false}
@@ -119,6 +122,7 @@ function ProjectTable2() {
                   <CreateProjectForm onClose={() => setAddproject(false)} />
                 </Modal>
               </td>
+              {/* درخواست ها Proposals */}
               <td>
                 <Link to={project._id}>
                     <HiEye className="w-5 h-5 text-primary-800"/>

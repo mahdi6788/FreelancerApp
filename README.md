@@ -122,3 +122,6 @@ w-[calc(100vw-2rem)] md:max-w-lg max-h-[calc(100vh-2rem)] overflow-y-auto
 
     30. ***edit***
     use CreateProjectForm and 
+
+
+    31. ***Edit*** isEditOpen is used to determine whether the modal for editing is open. However, if isEditOpen is shared among multiple rows, clicking the "edit" button on any row could open multiple modals or send multiple project objects to CreateProjectForm.

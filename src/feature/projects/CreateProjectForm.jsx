@@ -15,6 +15,7 @@ import useEditProject from "./useEditProject";
 function CreateProjectForm({ onClose, projectToEdit = {} }) {
   const { _id: editId } = projectToEdit;
   const isEditMode = Boolean(editId);
+
   const {isEditing, editProject} = useEditProject()
 
   const {

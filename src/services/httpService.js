@@ -4,8 +4,8 @@ const BASE_URL = "http://localhost:5000/api";
 
 const app = axios.create({
   baseURL: BASE_URL,
-  withCredentials: true,   /// if true, all cookies including like access and refresh tokens are sent to backend 
-});
+  withCredentials: true, /// if true, all cookies including (so access and refresh tokens are sent to backend)   
+}); 
 
 /// to check all errors and successful data in request and response.
 app.interceptors.request.use(

@@ -1,6 +1,4 @@
-**NOTES** : we should put hooks just after the function word before retrun, if or any thing else
-
-1. Install tailwind and set different parts.
+1. Install tailwind.
 2. install react router dom.
 3. arrange files and folders according to Featur based folder structure method:
 
@@ -21,25 +19,25 @@
 8. use the http.post to make a function for getting and cheking otp.
 9. **_ tanstack query _** it is like react query, and we can get, post, put and delelte data through that.
    First, install tanstack query, then make a queryClient and wrap all elements in App using QueryClientProvider. by doing this we can use the query throughout the project.
-10. ***useQuery and useMutation*** wherever we want to get, post, put or delete data in backend, we implement useQuery and useMutation: useQuery to get data, useMutation to post, put, delete data. In details, when we want to mutate (change) in database (backend), we should use useMutation(), but when we just want to get data from database, we use useQuery(). Both need a function to get or post or... data and contains API to communicate with backend, which is mutationFn or queryFn respectively that is the api function we created in services folder.
-useQuery needs a key to be determined what it got, named **queryKey**:["..."].
-When using useMutation(), we want to make changes in database, so we need to update. to do this we use the queryKey defined when we got the data from database. 
-useMutation needs **mutate** that gets the new data that we want to ssend to database and also onSuccess function that shows what happend after successful post data.
+10. **_useQuery and useMutation_** wherever we want to get, post, put or delete data in backend, we implement useQuery and useMutation: useQuery to get data, useMutation to post, put, delete data. In details, when we want to mutate (change) in database (backend), we should use useMutation(), but when we just want to get data from database, we use useQuery(). Both need a function to get or post or... data and contains API to communicate with backend, which is mutationFn or queryFn respectively that is the api function we created in services folder.
+    useQuery needs a key to be determined what it got, named **queryKey**:["..."].
+    When using useMutation(), we want to make changes in database, so we need to update. to do this we use the queryKey defined when we got the data from database.
+    useMutation needs **mutate** that gets the new data that we want to ssend to database and also onSuccess function that shows what happend after successful post data.
 
-  Example to get data from database (useQuery):
-    
+Example to get data from database (useQuery):
+
     const {data, isLoading} = useQuery({
     queryKey: ["projects"],
     queryFn: getOwnerProjectsApi,
     })
 
-  Explanation: here, we want to get data from database, so we need a key and function.
-  function is "getOwnerProjectsApi" that returns:
-  http.get("/project/owner-projects").then(({data}) => data.data)
-  so useQuery gets data from database through axios.get command and from the above address.
+Explanation: here, we want to get data from database, so we need a key and function.
+function is "getOwnerProjectsApi" that returns:
+http.get("/project/owner-projects").then(({data}) => data.data)
+so useQuery gets data from database through axios.get command and from the above address.
 
-  Example to post data to database (useMutation):
-    
+Example to post data to database (useMutation):
+
     const queryClient = useQueryClient()
 
     const {isPending: isCreating, mutate:  createproject} = useMutation({
@@ -55,11 +53,10 @@ useMutation needs **mutate** that gets the new data that we want to ssend to dat
         }
     })
 
-  Explanation: when mutation (here, creating new project) is successful, we need to show a message in this regard and more important we must invalidate the previous query that shows projects, resulting geting new list of projects.
-  **onSuccess**: anything we want to happend after succesing we put in onSuccess(){} as a callback function
- 
+Explanation: when mutation (here, creating new project) is successful, we need to show a message in this regard and more important we must invalidate the previous query that shows projects, resulting geting new list of projects.
+**onSuccess**: anything we want to happend after succesing we put in onSuccess(){} as a callback function
 
-*. to have a clean code we put codes regarding communication with backend (http.get and http.post) to different js files for each feature separately:
+\*. to have a clean code we put codes regarding communication with backend (http.get and http.post) to different js files for each feature separately:
 (useUser (for authentication feature) and useOwnerProjects (for projects feature))
 
 11. in getOtp(data) we want to post data (phoneNumber), so we use useMutation that get getOtp as an object.
@@ -120,10 +117,21 @@ w-[calc(100vw-2rem)] md:max-w-lg max-h-[calc(100vh-2rem)] overflow-y-auto
     as usual we need to work with backend so we need to create a new function related to API: createProjectApi(). here, we want to send (post) a data that is a new created project to backend: http.post("project/add", data).then(({data}) => data.data)
     then we create a custome hook : useCreateProject and also use it in where new project is created.
 
-    30. ***edit***
-    use CreateProjectForm and 
+    30. **_edit_**
+        use CreateProjectForm
+
+    31. **_Edit_** isEditOpen is used to determine whether the modal for editing is open. However, if isEditOpen is shared among multiple rows, clicking the "edit" button on any row could open multiple modals or send multiple project objects to CreateProjectForm.
+
+    32. put **Modals outside the Table**, otherwiae event.target and ref.current have interface
+
+    33. make blur user avatar when is loading causes better performance.
+    34. if we want to navigate user to a page we can use button or use Link
+    35. <button onClick(Navigate("/page"))> test <button>
+    36. <Link to="/page">test</Link>
+
+    37. **Dark Mode**
+    1. use localstorage to keep the user preference after refreshing the page.
+    2. put the main command we want to execute when the page is run into useEffect.
 
 
-    31. ***Edit*** isEditOpen is used to determine whether the modal for editing is open. However, if isEditOpen is shared among multiple rows, clicking the "edit" button on any row could open multiple modals or send multiple project objects to CreateProjectForm.
 
-    32. put Modals outside the Table, otherwiae event.target and ref.current have interface

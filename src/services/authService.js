@@ -14,9 +14,12 @@ export function completeProfile(data){
 export function getUser(){
     return http.get("/user/profile").then(({data}) => data.data)
 }
+export function LogoutApi(){
+    return http.post("/user/logout").then(({data}) => data.data)
+}
 
 
 
 // getOtp(), checkOtp() and completeProfile() use post to send data to backend (phoneNumber, OTP and userInfo respectively)
-// and get response from backend using .then(). 
+// and then get response from backend using .then(). 
 // but in the getUser(), get data from backend directly at first.

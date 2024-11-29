@@ -26,7 +26,7 @@ function ProposalsTable({ proposals }) {
     },
   ];
   ///
-  const [open, setOpen] = useState(false);
+  const [proposed, setProposed] = useState(null);
 
   return (
     <div>
@@ -51,32 +51,32 @@ function ProposalsTable({ proposals }) {
               <td
                 className={`badge 
                   ${statusStyle[proposal.status].classname}
-                  mt-4`}
+                  `}
               >
                 {statusStyle[proposal.status].label}
               </td>
               <td>
                 <button
                   className="btn bg-secondary-100"
-                  onClick={() => setOpen(true)}
+                  onClick={() => setProposed(proposal)}
                 >
                   تغییر وضعیت
                 </button>
-                <Modal
-                  title="تغییر وضعیت درخواست"
-                  onClose={() => setOpen(false)}
-                  open={open}
-                >
-                  <ChangeProposalStatus
-                    proposalId={proposal._id}
-                    onClose={() => setOpen(false)}
-                  />
-                </Modal>
               </td>
             </Table.Row>
           ))}
         </Table.Body>
       </Table>
+      <Modal
+        title="تغییر وضعیت درخواست"
+        onClose={() => setProposed(null)}
+        open={proposed}
+      >
+        <ChangeProposalStatus
+          proposalId={proposed?._id}
+          onClose={() => setProposed(null)}
+        />
+      </Modal>
     </div>
   );
 }

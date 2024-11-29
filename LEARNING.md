@@ -179,3 +179,57 @@ put **Modals outside the Table**, otherwise event.target and ref.current have in
 
  ***<Outlet/> vs children***
 when we use children, there is a container with static contents that can be different for different pages (e.g. sidebar on owner, freelancer and admin is different but it is static). But when using Outlet, we need to have dynamic content on a specific container.
+
+***CSS***
+if we want to use tailwind utilities into regular css classes, we must use @apply. Otherwise, we need to rewrite all of this tailwind utilities for every similar element, which increase repetition and file size.
+Example:
+**correct**
+@layer components{
+  .btn {
+    @apply w-full py-3 mt-2 ...
+  }
+}
+
+**wrong**
+.btn {
+  w-full, 
+  py-3,
+  mt-2
+}
+* Trade-Offs:
+Flexibility vs Reusability: Inline utilities are flexible for quick styles but harder to reuse or maintain consistently across a large project.
+* When to Use @apply:
+Use @apply when you have repeating patterns (e.g., buttons, forms) and want to encapsulate the utilities into reusable custom classes.
+
+* If you prefer not to use these, Tailwind still allows inline utility classes, but for larger projects, the abstraction and modularity of @apply will save time and effort in the long run.
+
+***Responsive and State Management***
+Use Tailwind's built-in responsive and state utilities to create adaptive designs:
+Responsive Prefixes: sm:, md:, lg:, etc.
+State Modifiers: hover:, focus:, disabled:, etc.
+
+***Best Practices***
+Start with Utilities: Use utility classes for most styles. Only create custom components when styles repeat.
+Custom Variables: Define consistent themes using tailwind.config.js or CSS variables.
+DRY Principle: Don't repeat yourself. Abstract patterns into reusable components or utilities.
+Use Documentation: Tailwind's documentation is excellent—refer to it often for new features or patterns.
+
+***Project Folder Structure***
+Organize your files into logical folders.
+
+project/
+├── public/          # Static files (images, fonts, etc.)
+├── src/
+│   ├── components/  # Reusable React/Vue/Svelte components
+│   ├── pages/       # Pages in your application
+│   ├── styles/      # Tailwind and custom styles
+│   │   ├── base.css         # Base styles (resets, typography)
+│   │   ├── components.css   # Component-specific styles
+│   │   ├── utilities.css    # Utility classes (optional overrides)
+│   │   └── tailwind.css     # Tailwind entry point
+│   ├── App.jsx       # Root component
+│   └── main.js       # Main entry point
+├── tailwind.config.js # Tailwind configuration
+├── postcss.config.js  # PostCSS configuration
+└── package.json       # Dependencies and scripts
+

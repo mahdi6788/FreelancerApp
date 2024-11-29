@@ -26,7 +26,7 @@ function ChangeProposalStatus({ proposalId, onClose }) {
   const {id: projectId} = useParams()
 
   const onSubmit = (data) => {
-    changeProposalStatus({id: proposalId, data},
+    changeProposalStatus({proposalId, projectId, ...data},
         {
             onSuccess: () => {
                 onClose()

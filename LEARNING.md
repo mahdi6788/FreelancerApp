@@ -3,11 +3,15 @@
 1. hooks (built-in and custome) should place at first in a component, before useEffect and handler (event) functions.
 2. In any project that we have database either static (as a json filelocated in public folder in frontend) or dynamic (in a backend file), it is neccessary to connect to backend and database so we need to run it first.
 3. mongoDB compass and postman are used to watch, add, edit, update and remove data in database.
-4. put **Modals outside the Table**, otherwiae event.target and ref.current have interface
+4. if we want to use **dynamic** commands, use {` static part ${Dynamic part} `}.
 5. To navigate user to a page there is t2 options: 1. button or 2. Link
     <button onClick(Navigate("/page"))> test <button>
     <Link to="/page">test</Link>
 6. In Dark Mode, use localstorage to keep the user preference after refreshing the page.
+
+***AppLayout***
+Applayout contains four sections header, footer, sidebar and main content. Header and footer are constant for all users so place here into the component. But sidebar is a child of AppLayout, containing different parts like dashboard, projects and proposals may have different parts for owner, freelancer and admin. so, we call AppLayout and Sidebar into OwnerLayout, FreelancerLayout, AdminLayout and put relative parts into that. 
+In the main section, there is the main content that differs for users. this part is the DashboardLayout component that contains different parts like header and main content, which are different from other users. 
 
 **_Feature Based Folder Structure_** method:
 
@@ -133,3 +137,45 @@ there are 5 methods to connection to backend: get, post, put, patch, and delete.
 **_Modal_**
 there is two types of add event listener : bubbling, capturing.
 the third parameters of eventlistener is determined as listenCapturing = true, it prevents from closing the modal automatically.
+
+***Table***
+put **Modals outside the Table**, otherwise event.target and ref.current have interface
+* instead of using open and setOpen, use the below.
+  when click on the button, it gets the project and wherever into modal we can use it also when it has project that means it is true otherwise false so it is useful for close and open the modal as well. 
+  const [proposedProject, setProposedProject] = useState(null)
+  const [open, setOpen] = useState(false);
+
+
+  ***useSearchParams & useLocation***
+  **useSearchParams**: 
+  when we want to send some information to searchbar to use in other components:
+  const {searchParams, setSearchParams} = useSearchParams()
+  1. post info to searchbar:
+  searchParams.set(key, value) 
+  setSearchParams(searchParams)
+  2. get info from searchbar:
+  const params = searchParams.get(key)
+  
+  **useLocation**:
+  when we wnat to get info from searchbar:
+  1. const info = useLocation()
+
+  ***ReactQueryDevtools***
+  Install and Import the react-query-devtools :
+  npm i @tanstack/react-query-devtools
+  import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+
+
+  ***Authenticate*** : identifying the user, who is the user: name, ...
+  ***Authorized***: permission and access to route
+  1. build a component in ui: ProtectedRoute.jsx
+  2. wrap ProtectedRoute on OwnerLayout and FreelancerLayout separately.
+  3. steps into ProtectedRoute:
+     1. load the authenticated user
+     2. check if it is authenticated or not, and check if it is autherized or not
+     3. while loading => show a loading
+     4. if user isAuthenticated and isAutherized => render the app 
+
+
+ ***<Outlet/> vs children***
+when we use children, there is a container with static contents that can be different for different pages (e.g. sidebar on owner, freelancer and admin is different but it is static). But when using Outlet, we need to have dynamic content on a specific container.

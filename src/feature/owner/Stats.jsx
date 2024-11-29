@@ -1,9 +1,9 @@
 import { HiCollection, HiCurrencyDollar, HiOutlineViewGrid } from "react-icons/hi";
-import Stat from "./Stat";
+import Stat from "../../ui/Stat";
 
 function Stats({ projects }) {
   const numOfProjects = projects.length;
-  const numOfAcceptedProjects = projects.map(
+  const numOfAcceptedProjects = projects.filter(
     (project) => project.status === 2
   ).length;
   const numOfProposals = projects.reduce(
@@ -30,8 +30,6 @@ function Stats({ projects }) {
         value={numOfProposals}
         color="blue"
       />
-      <div className="col-span-1"></div>
-      <div className="col-span-1"></div>
     </div>
   );
 }

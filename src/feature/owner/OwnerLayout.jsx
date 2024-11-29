@@ -3,16 +3,16 @@ import CustomNavLink from "../../ui/CustomNavLink";
 import Sidebar from "../../ui/Sidebar";
 import AppLayout from "../../ui/AppLayout";
 
-function OwnerLayout({ isActive }) {
+function OwnerLayout() {
   return (
     <AppLayout>
       <Sidebar>
-        <CustomNavLink to="/owner/dashboard" isActive={isActive}>
+        <CustomNavLink to="/owner/dashboard">
           <HiHome />
           <span>داشبورد</span>
         </CustomNavLink>
 
-        <CustomNavLink to="/owner/projects" isActive={isActive}>
+        <CustomNavLink to="/owner/projects">
           <HiOutlineCollection />
           <span>پروژه ها </span>
         </CustomNavLink>

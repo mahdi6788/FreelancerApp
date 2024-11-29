@@ -5,7 +5,7 @@ import OTPInput from "react-otp-input";
 import { checkOtp } from "../../services/authService";
 import { useNavigate } from "react-router-dom";
 import { HiArrowCircleRight } from "react-icons/hi";
-import {CiEdit} from "react-icons/ci"
+import { CiEdit } from "react-icons/ci";
 import Loading from "../../ui/Loading";
 
 function CheckOTPForm({ phoneNumber, setStep, onResendOtp, otpResponse }) {
@@ -24,14 +24,15 @@ function CheckOTPForm({ phoneNumber, setStep, onResendOtp, otpResponse }) {
       const { message, user } = await mutateAsync({ phoneNumber, otp });
       toast.success(message);
 
-      if (!user.isActive) return navigate("/complete-profile")
+      if (!user.isActive) return navigate("/complete-profile");
       if (user.status !== 2) {
-        navigate("/")
-        toast("پروفایل شما در انتظار تایید است.")
-        return
+        navigate("/");
+        toast("پروفایل شما در انتظار تایید است.");
+        return;
       }
-      if (user.role === "OWNER") return navigate("/owner")
-      if (user.role === "FREELANCER") return navigate("/freelancer")
+      if (user.role === "OWNER") return navigate("/owner");
+      if (user.role === "FREELANCER") return navigate("/freelancer");
+      if (user.role === "ADMIN") return navigate("/admin");
     } catch (error) {
       toast.error(error?.response?.data?.message);
     }
@@ -53,13 +54,15 @@ function CheckOTPForm({ phoneNumber, setStep, onResendOtp, otpResponse }) {
         <HiArrowCircleRight className="w-7 h-7 text-secondary-500" />
       </button>
       <div>
-        {otpResponse &&
-        (<div className="flex items-center gap-x-3 my-4"> 
-          <span>{otpResponse?.message}</span> 
-          <button onClick={() => setStep(1)}> <CiEdit className="text-primary-900 w-5 h-5"/> </button>
-        </div>
-         )
-        }
+        {otpResponse && (
+          <div className="flex items-center gap-x-3 my-4">
+            <span>{otpResponse?.message}</span>
+            <button onClick={() => setStep(1)}>
+              {" "}
+              <CiEdit className="text-primary-900 w-5 h-5" />{" "}
+            </button>
+          </div>
+        )}
       </div>
       <div className="text-secondary-500 mb-3">
         {time > 0 ? (

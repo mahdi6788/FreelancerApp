@@ -1,14 +1,26 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SendOTPForm from "./SendOTPForm";
 import CheckOTPForm from "./CheckOTPForm";
 import { useMutation } from "@tanstack/react-query";
 import { getOtp } from "../../services/authService";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
+import useUser from "./useUser";
 
 function AuthContainer() {
   /// we need to getOtp function in both SendOTPForm and ChckOTPForm, so put it in parent
-  
-  const { isPending: isSendingOtp, mutateAsync, data:otpResponse } = useMutation({
+
+  const navigate = useNavigate() 
+  const {user} = useUser()
+  useEffect(() => {
+    if (user) navigate("/", {replace: true})
+  },[user, navigate])
+
+  const {
+    isPending: isSendingOtp,
+    mutateAsync,
+    data: otpResponse,
+  } = useMutation({
     mutationFn: getOtp,
   });
 

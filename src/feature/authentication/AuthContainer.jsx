@@ -11,7 +11,15 @@ function AuthContainer() {
   /// we need to getOtp function in both SendOTPForm and ChckOTPForm, so put it in parent
 
   const navigate = useNavigate() 
+
   const {user} = useUser()
+
+  /// we need phone number for both sendOtpForm and CheckOtpForm
+  const [phoneNumber, setPhoneNumber] = useState("");
+
+  /// step is counter for each stage : step1: sending phone number and step2: typing the took code to check
+  const [step, setStep] = useState(1);
+
   useEffect(() => {
     if (user) navigate("/", {replace: true})
   },[user, navigate])
@@ -39,11 +47,7 @@ function AuthContainer() {
     }
   };
 
-  /// we need phone number for both sendOtpForm and CheckOtpForm
-  const [phoneNumber, setPhoneNumber] = useState("");
-
-  /// step is counter for each stage : step1: sending phone number and step2: typing the took code to check
-  const [step, setStep] = useState(1);
+  
   const renderStep = () => {
     switch (step) {
       case 1:

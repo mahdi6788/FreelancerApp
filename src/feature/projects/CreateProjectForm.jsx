@@ -120,7 +120,7 @@ function CreateProjectForm({ onClose, projectToEdit = {} }) {
         name="category"
         options={categories}
         register={register}
-        required
+        // required
       />
       <div>
         <label className="mb-2 block text-secondary-700">تگ</label>

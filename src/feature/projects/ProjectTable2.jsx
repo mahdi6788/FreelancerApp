@@ -27,8 +27,18 @@ function ProjectTable2() {
   if (isLoading) return <Loading />;
 
   // console.log(projects.length)
-  if (!projects.length) return <Empty />;
-  // console.log(projects[1].category.title)
+  if (!projects.length) {
+    // There is not any project to show.
+    /// Create New Project
+    <button
+      onClick={() => setAddproject(true)}
+      className="mb-2 p-1 bg-primary-300 rounded-md "
+    >
+      ایجاد پروژه جدید
+    </button>;
+    
+  }
+
 
   return (
     <>

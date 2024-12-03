@@ -1,27 +1,45 @@
-import { HiHome } from "react-icons/hi";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import HeaderMenu from "../ui/HeaderMenu";
+import useUser from "../feature/authentication/useUser";
+import { SiPanasonic } from "react-icons/si";
 
 function Home() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const { user } = useUser();
 
   return (
-    <div className="h-screen bg-secondary-0">
+    <div
+      className="h-screen bg-secondary-0"
+      style={{
+        backgroundImage: `url(https://assets.turbologo.com/blog/en/2021/08/31093852/freelancer.png)`,
+        backgroundSize: "cover",
+        height: "100vh",
+        backgroundPosition: "center",
+      }}
+    >
       <div className="container xl:max-w-screen-xl">
-        <div className="flex justify-between">
-        <h1 className="p-4 text-xl text-primary-700 font-extrabold"> Wellcome </h1>
-        <HeaderMenu disabled={false}/>
-        </div>
-        <div className="mt-16">
-          <ul className="flex flex-col items-center gap-y-5 md:flex-row md:justify-around md:gap-x-20 ">
-            <li className="flex justify-center w-full p-5 border border-secondary-0 bg-secondary-200 text-primary-900 font-bold text-lg shadow-lg hover:shadow-blue-100" onClick={() => navigate("/admin")}>
+        <div className="flex justify-between items-center">
+          <p className="p-4 text-sm text-secondary-500 font-extrabold">
+          Bringing freelancers and projects together
+          </p>
+          <div className="flex justify-between gap-x-3 ">
+            <HeaderMenu />
+            <div
+              onClick={() => navigate("/auth")}
+              className="text-primary-600 font-bold hover:text-primary-900"
+            >
               ادمین
+            </div>
+          </div>
+        </div>
+        <div className="">
+          <ul className="flex justify-around gap-x-[8.5rem] mt-[7rem] tracking-wider">
+            <li className="flex justify-center px-10 py-5 text-primary-900 font-bold text-3xl shadow-lg hover:shadow-blue-100">
+              <button onClick={() => navigate("/")}>فریلنسر</button>
             </li>
-            <li className="flex justify-center w-full p-5 border border-secondary-0 bg-secondary-200 text-primary-900 font-bold text-lg shadow-lg hover:shadow-blue-100" onClick={() => navigate("/freelancer")}>
-              فریلنسر
-            </li>
-            <li className="flex justify-center w-full p-5 border border-secondary-0 bg-secondary-200 text-primary-900 font-bold text-lg shadow-lg hover:shadow-blue-100" onClick={() => navigate("/owner")}>
-              کارفرما
+
+            <li className="flex justify-center px-10 py-5 text-primary-900 font-bold text-3xl shadow-lg hover:shadow-blue-100">
+              <button onClick={() => navigate("/")}>کارفرما</button>
             </li>
           </ul>
         </div>
